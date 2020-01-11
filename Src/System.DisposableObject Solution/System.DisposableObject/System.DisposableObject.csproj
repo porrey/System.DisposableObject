@@ -1,47 +1,47 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup Label="Globals">
-    <SccProjectName>SAK</SccProjectName>
-    <SccProvider>SAK</SccProvider>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccLocalPath>SAK</SccLocalPath>
-  </PropertyGroup>
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.0</TargetFrameworks>
-    <Authors>Daniel Porrey</Authors>
-    <Company>Daniel Porrey</Company>
-    <Copyright>Copyright © Daniel Porrey 2017-2020</Copyright>
-    <PackageId>System.DisposableObject</PackageId>
-    <Version>1.2.0</Version>
-    <Description>Base object for disposing managed and unmanaged objects.</Description>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyName>System.DisposableObject</AssemblyName>
-    <RootNamespace>System.DisposableObject</RootNamespace>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <FileVersion>1.2.0</FileVersion>
-    <AssemblyVersion>1.2.0</AssemblyVersion>
-    <PackageProjectUrl>https://github.com/porrey/System.DisposableObject</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/porrey/System.DisposableObject</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageIcon>dispose.png</PackageIcon>
-		<PackageIconUrl></PackageIconUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.0</TargetFrameworks>
+		<Authors>Daniel Porrey</Authors>
+		<Company>Daniel Porrey</Company>
+		<Copyright>Copyright © Daniel Porrey 2017-2020</Copyright>
+		<PackageId>System.DisposableObject</PackageId>
+		<Version>1.2.0</Version>
+		<Description>Base object for disposing managed and unmanaged objects.</Description>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<AssemblyName>System.DisposableObject</AssemblyName>
+		<RootNamespace>System.DisposableObject</RootNamespace>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<FileVersion>1.2.0</FileVersion>
+		<AssemblyVersion>1.2.0</AssemblyVersion>
+		<PackageProjectUrl>https://github.com/porrey/System.DisposableObject</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/porrey/System.DisposableObject</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageIcon>dispose.png</PackageIcon>
+		<PackageIconUrl>https://raw.githubusercontent.com/porrey/System.DisposableObject/master/Image/dispose.png</PackageIconUrl>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>true</Optimize>
-    <DocumentationFile>bin\Release\netstandard2.0\System.DisposableObject.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<Optimize>true</Optimize>
+		<DocumentationFile>bin\Release\netstandard2.0\System.DisposableObject.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Disposable Object.csproj.vspscc" />
-    <None Include="..\..\..\Image\dispose.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Disposable Object.csproj.vspscc" />
+		<None Include="..\..\..\Image\dispose.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>
