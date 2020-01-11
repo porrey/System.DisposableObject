@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
 		<Authors>Daniel Porrey</Authors>
 		<Company>Daniel Porrey</Company>
 		<Copyright>Copyright © Daniel Porrey 2017-2020</Copyright>
