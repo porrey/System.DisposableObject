@@ -10,7 +10,7 @@ namespace System
 	/// simply needs to override OnDisposeManagedObjects and/or
 	/// OnDisposeUnmanagedObjects.
 	/// </summary>
-	public abstract class DisposableObject2 : DynamicObject, IDisposable
+	public abstract class DisposableObject : DynamicObject, IDisposable
 	{
 		/// <summary>
 		/// Gets a value that specifies if this object has been disposed or not.
@@ -20,7 +20,7 @@ namespace System
 		/// <summary>
 		/// Default constructor for System.DisposableObject.
 		/// </summary>
-		public DisposableObject2()
+		public DisposableObject()
 		{
 			// ***
 			// *** Set this to True for debugging.
@@ -31,7 +31,7 @@ namespace System
 		/// <summary>
 		/// Default destructor for System.DisposableObject.
 		/// </summary>
-		~DisposableObject2()
+		~DisposableObject()
 		{
 			// ***
 			// *** Write a trace (to the debugger) showing this method was called (it will only
