@@ -33,7 +33,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<Optimize>true</Optimize>
-		<DocumentationFile>bin\Release\netstandard2.0\System.DisposableObject.xml</DocumentationFile>
+		<DocumentationFile>System.DisposableObject.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
