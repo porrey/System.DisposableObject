@@ -4,7 +4,7 @@
 # System.DisposableObject
 Base object for disposing managed and unmanaged objects. This object implements the dispose pattern for the .NET Framwork.
 
-##Example
+## Example
 Create a class and inherit from **DisposableObject** as shown below:
 
     using System;
@@ -44,7 +44,7 @@ or call the Dispose() method.
 
 In either case, the **OnDisposeManagedObjects()** and **OnDisposeUnmanagedObjects()** are called.
 
-##References
+## References
 
 1. [https://docs.microsoft.com/en-us/dotnet/api/system.idisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable "https://docs.microsoft.com/en-us/dotnet/api/system.idisposable")
 
