@@ -2,7 +2,7 @@
 ![Nuget](https://img.shields.io/nuget/dt/System.DisposableObject?label=Downloads&style=for-the-badge)](https://www.nuget.org/packages/System.DisposableObject/)
 
 # System.DisposableObject
-Base object for disposing managed and unmanaged objects. This object implements the dispose pattern for the .NET Framwork.
+Base object for disposing managed and unmanaged objects. This object implements the dispose pattern for the .NET Framework.
 
 ## Example
 Create a class and inherit from **DisposableObject** as shown below:
