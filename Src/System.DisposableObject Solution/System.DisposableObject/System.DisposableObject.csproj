@@ -8,12 +8,12 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net40;net45;net461;netcoreapp3.1</TargetFrameworks>
 		<Authors>Daniel Porrey</Authors>
 		<Company>Daniel Porrey</Company>
 		<Copyright>Copyright © Daniel Porrey 2017-2020</Copyright>
 		<PackageId>System.DisposableObject</PackageId>
-		<Version>1.2.1</Version>
+		<Version>1.3.0</Version>
 		<Description>Base object for disposing managed and unmanaged objects.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseUrl></PackageLicenseUrl>
@@ -22,8 +22,8 @@
 		<AssemblyName>System.DisposableObject</AssemblyName>
 		<RootNamespace>System.DisposableObject</RootNamespace>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-		<FileVersion>1.2.1</FileVersion>
-		<AssemblyVersion>1.2.1</AssemblyVersion>
+		<FileVersion>1.3.0</FileVersion>
+		<AssemblyVersion>1.3.0</AssemblyVersion>
 		<PackageProjectUrl>https://github.com/porrey/System.DisposableObject</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/porrey/System.DisposableObject</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
