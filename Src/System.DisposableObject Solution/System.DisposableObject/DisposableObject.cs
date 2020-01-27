@@ -1,19 +1,19 @@
 ﻿// ***
 // *** Copyright(C) 2017-2020, Daniel M. Porrey. All rights reserved.
-// *** 
+// **
 // *** This program is free software: you can redistribute it and/or modify
 // *** it under the terms of the GNU Lesser General Public License as published
 // *** by the Free Software Foundation, either version 3 of the License, or
 // *** (at your option) any later version.
-// *** 
+// ***
 // *** This program is distributed in the hope that it will be useful,
 // *** but WITHOUT ANY WARRANTY; without even the implied warranty of
 // *** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // *** GNU Lesser General Public License for more details.
-// *** 
+// ***
 // *** You should have received a copy of the GNU Lesser General Public License
 // *** along with this program. If not, see http://www.gnu.org/licenses/.
-// *** 
+// ***
 using System.Diagnostics;
 using System.Dynamic;
 
@@ -65,7 +65,7 @@ namespace System
 				{
 					// ***
 					// *** Assert if this object is destroyed without being disposed. Even though
-					// *** dispose is called here, it is more ideal that it be called by the user 
+					// *** dispose is called here, it is more ideal that it be called by the user
 					// *** of the object. This assert will help catch this instance.
 					// ***
 					Trace.Assert(this.IsDisposed, this.OnGetClassName() + " was not disposed properly.");
@@ -175,7 +175,7 @@ namespace System
 		}
 
 		/// <summary>
-		/// Classes should call this method prior to any other method call being invoked to ensure that 
+		/// Classes should call this method prior to any other method call being invoked to ensure that
 		/// the Dispose() has not been called on the class.
 		/// </summary>
 		protected void AccessMethod()
