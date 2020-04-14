@@ -13,7 +13,7 @@
 		<Company>Daniel Porrey</Company>
 		<Copyright>Copyright © Daniel Porrey 2017-2020</Copyright>
 		<PackageId>System.DisposableObject</PackageId>
-		<Version>1.3.1</Version>
+		<Version>1.3.2</Version>
 		<Description>Base object for disposing managed and unmanaged objects.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseUrl></PackageLicenseUrl>
@@ -22,13 +22,19 @@
 		<AssemblyName>System.DisposableObject</AssemblyName>
 		<RootNamespace>System.DisposableObject</RootNamespace>
 		<PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
-		<FileVersion>1.3.1</FileVersion>
-		<AssemblyVersion>1.3.1</AssemblyVersion>
+		<FileVersion>1.3.2</FileVersion>
+		<AssemblyVersion>1.3.2</AssemblyVersion>
 		<PackageProjectUrl>https://github.com/porrey/System.DisposableObject</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/porrey/System.DisposableObject</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>dispose.png</PackageIcon>
 		<PackageIconUrl>https://raw.githubusercontent.com/porrey/System.DisposableObject/master/Image/dispose.png</PackageIconUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -42,6 +48,13 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
 
 </Project>

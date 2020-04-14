@@ -51,7 +51,7 @@
         </member>
         <member name="M:System.DisposableObject.AccessMethod">
             <summary>
-            Classes should call this method prior to any other method call being invoked to ensure that 
+            Classes should call this method prior to any other method call being invoked to ensure that
             the Dispose() has not been called on the class.
             </summary>
         </member>
