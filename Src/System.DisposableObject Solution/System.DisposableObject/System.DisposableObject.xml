@@ -33,6 +33,17 @@
             Called to perform cleanup of valuable resources and to set the state of the object to an unusable state.
             </summary>
         </member>
+        <member name="P:System.DisposableObject.InProcessOfDisposing">
+            <summary>
+            Set to true if the object is currently being disposed.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.Dispose(System.Boolean)">
+            <summary>
+            Called internally to dispose
+            </summary>
+            <param name="disposing"></param>
+        </member>
         <member name="P:System.DisposableObject.AssertWhenNotDisposed">
             <summary>
             Set this property to True to inform the class to display a message if the object is destroyed

@@ -1,5 +1,5 @@
 ﻿// ***
-// *** Copyright(C) 2017-2020, Daniel M. Porrey. All rights reserved.
+// *** Copyright(C) 2017-2021, Daniel M. Porrey. All rights reserved.
 // **
 // *** This program is free software: you can redistribute it and/or modify
 // *** it under the terms of the GNU Lesser General Public License as published
@@ -101,9 +101,16 @@ namespace System
 			GC.SuppressFinalize(this);
 		}
 
-		private bool InProcessOfDisposing { get; set; } = false;
+		/// <summary>
+		/// Set to true if the object is currently being disposed.
+		/// </summary>
+		protected virtual bool InProcessOfDisposing { get; set; } = false;
 
-		private void Dispose(bool disposing)
+		/// <summary>
+		/// Called internally to dispose
+		/// </summary>
+		/// <param name="disposing"></param>
+		protected virtual void Dispose(bool disposing)
 		{
 			try
 			{
@@ -158,7 +165,7 @@ namespace System
 		/// Set this property to True to inform the class to display a message if the object is destroyed
 		/// without the Dispose() method having been called.
 		/// </summary>
-		protected bool AssertWhenNotDisposed { get; set; }
+		protected virtual bool AssertWhenNotDisposed { get; set; }
 
 		/// <summary>
 		/// Classes should override this method to perform cleanup of managed objects.
@@ -178,7 +185,7 @@ namespace System
 		/// Classes should call this method prior to any other method call being invoked to ensure that
 		/// the Dispose() has not been called on the class.
 		/// </summary>
-		protected void AccessMethod()
+		protected virtual void AccessMethod()
 		{
 			// ***
 			// *** Called in any method of the inherited class. If this
