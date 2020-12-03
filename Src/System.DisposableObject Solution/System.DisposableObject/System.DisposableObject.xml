@@ -4,12 +4,39 @@
         <name>System.DisposableObject</name>
     </assembly>
     <members>
+        <member name="T:System.AsyncDisposableObject">
+            <summary>
+            This class provides base functionality for implementing
+            <see cref="T:System.IAsyncDisposable"/>. Since we are dealing with
+            database resources, disposing of objects is important. Any
+            class that inherits from this class simply needs to override
+            OnDisposeManagedObjects and/or OnDisposeUnmanagedObjects.
+            </summary>
+        </member>
+        <member name="M:System.AsyncDisposableObject.#ctor">
+            <summary>
+            Default constructor for <see cref="T:System.AsyncDisposableObject"/>.
+            </summary>
+        </member>
+        <member name="M:System.AsyncDisposableObject.Finalize">
+            <summary>
+            Default destructor for <see cref="T:System.AsyncDisposableObject"/>.
+            </summary>
+        </member>
+        <member name="M:System.AsyncDisposableObject.DisposeAsync">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting
+            unmanaged resources asynchronously.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:System.DisposableObject">
             <summary>
             This class provides base functionality for implementing
-            IDisposable. Since we are dealing with database resources, disposing
-            of objects is important. Any class that inherits from this class
-            simply needs to override OnDisposeManagedObjects and/or
+            <see cref="T:System.IDisposable"/>. Since we are dealing with
+            database resources, disposing of objects is important.
+            Any class that inherits from this class simply needs
+            to override OnDisposeManagedObjects and/or
             OnDisposeUnmanagedObjects.
             </summary>
         </member>
@@ -20,17 +47,18 @@
         </member>
         <member name="M:System.DisposableObject.#ctor">
             <summary>
-            Default constructor for System.DisposableObject.
+            Default constructor for <see cref="T:System.DisposableObject"/>.
             </summary>
         </member>
         <member name="M:System.DisposableObject.Finalize">
             <summary>
-            Default destructor for System.DisposableObject.
+            Default destructor for <see cref="T:System.DisposableObject"/>.
             </summary>
         </member>
         <member name="M:System.DisposableObject.Dispose">
             <summary>
-            Called to perform cleanup of valuable resources and to set the state of the object to an unusable state.
+            Called to perform cleanup of valuable resources and to set the state of
+            the object to an unusable state.
             </summary>
         </member>
         <member name="P:System.DisposableObject.InProcessOfDisposing">
@@ -82,7 +110,7 @@
         <member name="M:System.DisposableObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)">
             <summary>
             Provides the implementation for operations that invoke a member. Classes derived
-            from the System.Dynamic.DynamicObject class can override this method to specify
+            from the <see cref="N:System.Dynamic"/> class can override this method to specify
             dynamic behavior for operations such as calling a method.
             </summary>
             <param name="binder">Provides information about the dynamic operation. The binder.Name property provides

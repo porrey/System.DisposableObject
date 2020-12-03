@@ -21,9 +21,10 @@ namespace System
 {
 	/// <summary>
 	/// This class provides base functionality for implementing
-	/// IDisposable. Since we are dealing with database resources, disposing
-	/// of objects is important. Any class that inherits from this class
-	/// simply needs to override OnDisposeManagedObjects and/or
+	/// <see cref="IDisposable"/>. Since we are dealing with
+	/// database resources, disposing of objects is important.
+	/// Any class that inherits from this class simply needs
+	/// to override OnDisposeManagedObjects and/or
 	/// OnDisposeUnmanagedObjects.
 	/// </summary>
 	public abstract class DisposableObject : DynamicObject, IDisposable
@@ -34,7 +35,7 @@ namespace System
 		protected bool IsDisposed { get; private set; }
 
 		/// <summary>
-		/// Default constructor for System.DisposableObject.
+		/// Default constructor for <see cref="DisposableObject"/>.
 		/// </summary>
 		public DisposableObject()
 		{
@@ -45,7 +46,7 @@ namespace System
 		}
 
 		/// <summary>
-		/// Default destructor for System.DisposableObject.
+		/// Default destructor for <see cref="DisposableObject"/>.
 		/// </summary>
 		~DisposableObject()
 		{
@@ -85,7 +86,8 @@ namespace System
 		}
 
 		/// <summary>
-		/// Called to perform cleanup of valuable resources and to set the state of the object to an unusable state.
+		/// Called to perform cleanup of valuable resources and to set the state of
+		/// the object to an unusable state.
 		/// </summary>
 		public void Dispose()
 		{
@@ -227,7 +229,7 @@ namespace System
 
 		/// <summary>
 		/// Provides the implementation for operations that invoke a member. Classes derived
-		/// from the System.Dynamic.DynamicObject class can override this method to specify
+		/// from the <see cref="Dynamic"/> class can override this method to specify
 		/// dynamic behavior for operations such as calling a method.
 		/// </summary>
 		/// <param name="binder">Provides information about the dynamic operation. The binder.Name property provides

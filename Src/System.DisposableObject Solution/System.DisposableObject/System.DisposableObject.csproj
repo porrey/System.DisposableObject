@@ -6,7 +6,7 @@
 		<Company>Daniel Porrey</Company>
 		<Copyright>Copyright © Daniel Porrey 2017-2021</Copyright>
 		<PackageId>System.DisposableObject</PackageId>
-		<Version>1.4.0</Version>
+		<Version>1.4.1</Version>
 		<Description>Base object for disposing managed and unmanaged objects. Supports async disposing with IAsyncDisposable as well as the standard IDisposable.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseUrl></PackageLicenseUrl>
@@ -15,8 +15,8 @@
 		<AssemblyName>System.DisposableObject</AssemblyName>
 		<RootNamespace>System.DisposableObject</RootNamespace>
 		<PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
-		<FileVersion>1.4.0</FileVersion>
-		<AssemblyVersion>1.4.0</AssemblyVersion>
+		<FileVersion>1.4.1</FileVersion>
+		<AssemblyVersion>1.4.1</AssemblyVersion>
 		<PackageProjectUrl>https://github.com/porrey/System.DisposableObject</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/porrey/System.DisposableObject</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>

@@ -22,15 +22,15 @@ namespace System
 {
 	/// <summary>
 	/// This class provides base functionality for implementing
-	/// IDisposable. Since we are dealing with database resources, disposing
-	/// of objects is important. Any class that inherits from this class
-	/// simply needs to override OnDisposeManagedObjects and/or
-	/// OnDisposeUnmanagedObjects.
+	/// <see cref="IAsyncDisposable"/>. Since we are dealing with
+	/// database resources, disposing of objects is important. Any
+	/// class that inherits from this class simply needs to override
+	/// OnDisposeManagedObjects and/or OnDisposeUnmanagedObjects.
 	/// </summary>
 	public abstract class AsyncDisposableObject : DisposableObject, IAsyncDisposable
 	{
 		/// <summary>
-		/// Default constructor for System.DisposableObject.
+		/// Default constructor for <see cref="AsyncDisposableObject"/>.
 		/// </summary>
 		public AsyncDisposableObject()
 		{
@@ -41,7 +41,7 @@ namespace System
 		}
 
 		/// <summary>
-		/// Default destructor for System.DisposableObject.
+		/// Default destructor for <see cref="AsyncDisposableObject"/>.
 		/// </summary>
 		~AsyncDisposableObject()
 		{
@@ -81,21 +81,13 @@ namespace System
 		}
 
 		/// <summary>
-		/// 
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting
+		/// unmanaged resources asynchronously.
 		/// </summary>
 		/// <returns></returns>
-		public virtual async ValueTask DisposeAsync()
+		public virtual ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore();
-			base.Dispose();
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		protected virtual ValueTask DisposeAsyncCore()
-		{
+			this.Dispose();
 			return ValueTask.CompletedTask;
 		}
 	}
