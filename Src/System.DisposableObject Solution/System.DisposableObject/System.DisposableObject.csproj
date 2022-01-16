@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;netstandard2.1;net40;net45;net461;netcoreapp3.1;net5.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net40;net45;net461;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
 		<Authors>Daniel Porrey</Authors>
 		<Company>Daniel Porrey</Company>
-		<Copyright>Copyright © Daniel Porrey 2017-2021</Copyright>
+		<Copyright>Copyright © Daniel Porrey 2017-2022</Copyright>
 		<PackageId>System.DisposableObject</PackageId>
-		<Version>1.4.1</Version>
+		<Version>1.5.0</Version>
 		<Description>Base object for disposing managed and unmanaged objects. Supports async disposing with IAsyncDisposable as well as the standard IDisposable.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseUrl></PackageLicenseUrl>
@@ -15,8 +15,8 @@
 		<AssemblyName>System.DisposableObject</AssemblyName>
 		<RootNamespace>System.DisposableObject</RootNamespace>
 		<PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
-		<FileVersion>1.4.1</FileVersion>
-		<AssemblyVersion>1.4.1</AssemblyVersion>
+		<FileVersion>1.5.0</FileVersion>
+		<AssemblyVersion>1.5.0</AssemblyVersion>
 		<PackageProjectUrl>https://github.com/porrey/System.DisposableObject</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/porrey/System.DisposableObject</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -31,15 +31,21 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Optimize>true</Optimize>
+		<Optimize>False</Optimize>
 		<DocumentationFile>System.DisposableObject.xml</DocumentationFile>
 		<PackageTags>async dispose disposable IAsyncDisposable IDisposable</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="..\..\..\Image\dispose.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 

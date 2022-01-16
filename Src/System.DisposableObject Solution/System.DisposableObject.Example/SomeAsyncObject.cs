@@ -1,5 +1,4 @@
-﻿#if (NET5_0)
-using System;
+﻿using System;
 
 namespace Sample
 {
@@ -20,4 +19,3 @@ namespace Sample
 		}
 	}
 }
-#endif

@@ -4,21 +4,19 @@
 	{
 		static void Main(string[] args)
 		{
-			using (SomeObject obj1 = new SomeObject())
+			using (SomeObject obj1 = new())
 			{
 				// ***
 				// *** obj will be disposed and the dispose
 				// *** methods will be called.
 			}
 
-#if (NET5_0)
-			using (SomeAsyncObject obj2 = new SomeAsyncObject())
+			using (SomeAsyncObject obj2 = new())
 			{
 				// ***
 				// *** obj will be disposed and the dispose
 				// *** methods will be called.
 			}
-#endif
 		}
 	}
 }
