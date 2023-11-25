@@ -1,19 +1,19 @@
-﻿// ***
-// *** Copyright(C) 2017-2021, Daniel M. Porrey. All rights reserved.
-// **
-// *** This program is free software: you can redistribute it and/or modify
-// *** it under the terms of the GNU Lesser General Public License as published
-// *** by the Free Software Foundation, either version 3 of the License, or
-// *** (at your option) any later version.
-// ***
-// *** This program is distributed in the hope that it will be useful,
-// *** but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// *** GNU Lesser General Public License for more details.
-// ***
-// *** You should have received a copy of the GNU Lesser General Public License
-// *** along with this program. If not, see http://www.gnu.org/licenses/.
-// ***
+﻿//
+// Copyright(C) 2017-2021, Daniel M. Porrey. All rights reserved.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see http://www.gnu.org/licenses/.
+//
 using System.Diagnostics;
 using System.Dynamic;
 
@@ -39,9 +39,9 @@ namespace System
 		/// </summary>
 		public DisposableObject()
 		{
-			// ***
-			// *** Set this to True for debugging.
-			// ***
+			//
+			// Set this to True for debugging.
+			//
 			this.AssertWhenNotDisposed = false;
 		}
 
@@ -50,25 +50,25 @@ namespace System
 		/// </summary>
 		~DisposableObject()
 		{
-			// ***
-			// *** Write a trace (to the debugger) showing this method was called (it will only
-			// *** get called if this object is not Disposed).
-			// ***
+			//
+			// Write a trace (to the debugger) showing this method was called (it will only
+			// get called if this object is not Disposed).
+			//
 			Trace.TraceWarning("~BaseObject called on {0}", this.OnGetClassName());
 
-			// ***
-			// *** Give the parent object a chance to respond, if not then this
-			// *** class will assert.
-			// ***
+			//
+			// Give the parent object a chance to respond, if not then this
+			// class will assert.
+			//
 			if (this.AssertWhenNotDisposed)
 			{
 				if (!this.OnNotDisposedProperly())
 				{
-					// ***
-					// *** Assert if this object is destroyed without being disposed. Even though
-					// *** dispose is called here, it is more ideal that it be called by the user
-					// *** of the object. This assert will help catch this instance.
-					// ***
+					//
+					// Assert if this object is destroyed without being disposed. Even though
+					// dispose is called here, it is more ideal that it be called by the user
+					// of the object. This assert will help catch this instance.
+					//
 					Trace.Assert(this.IsDisposed, this.OnGetClassName() + " was not disposed properly.");
 				}
 				else
@@ -77,11 +77,11 @@ namespace System
 				}
 			}
 
-			// ***
-			// *** This destructor is only called by garbage collection. Because of this, this object
-			// *** can no longer access managed objects. Only unmanaged objects will be cleaned up
-			// *** here.
-			// ***
+			//
+			// This destructor is only called by garbage collection. Because of this, this object
+			// can no longer access managed objects. Only unmanaged objects will be cleaned up
+			// here.
+			//
 			this.Dispose(false);
 		}
 
@@ -93,13 +93,13 @@ namespace System
 		{
 			this.Dispose(true);
 
-			// ***
-			// *** This object will be cleaned up by the Dispose method.
-			// *** The call to GC.SupressFinalize will
-			// *** take this object off the finalization queue
-			// *** and prevent finalization code for this object
-			// *** from executing a second time.
-			// ***
+			//
+			// This object will be cleaned up by the Dispose method.
+			// The call to GC.SupressFinalize will
+			// take this object off the finalization queue
+			// and prevent finalization code for this object
+			// from executing a second time.
+			//
 			GC.SuppressFinalize(this);
 		}
 
@@ -120,34 +120,34 @@ namespace System
 				{
 					this.InProcessOfDisposing = true;
 
-					// ***
-					// *** Dispose(bool disposing) executes in two distinct scenarios.
-					// *** If disposing equals true, the method has been called directly
-					// *** code. Managed and unmanaged resources can be disposed. If
-					// *** disposing equals false, the method has been called by the
-					// *** runtime from inside the finalizer and you should not reference
-					// *** other objects. Only unmanaged resources can be disposed.
-					// ***
+					//
+					// Dispose(bool disposing) executes in two distinct scenarios.
+					// If disposing equals true, the method has been called directly
+					// code. Managed and unmanaged resources can be disposed. If
+					// disposing equals false, the method has been called by the
+					// runtime from inside the finalizer and you should not reference
+					// other objects. Only unmanaged resources can be disposed.
+					//
 					try
 					{
-						// ***
-						// *** Check to see of Dispose has been called yet
-						// ***
+						//
+						// Check to see of Dispose has been called yet
+						//
 						if (!this.IsDisposed)
 						{
-							// ***
-							// *** Dispose managed resources (any objects
-							// *** with a Dispose method)
-							// ***
+							//
+							// Dispose managed resources (any objects
+							// with a Dispose method)
+							//
 							if (disposing)
 							{
 								this.OnDisposeManagedObjects();
 							}
 
-							// ***
-							// *** Cleanup unmanaged resources here (no calls
-							// *** to any .NET objects should be made here).
-							// ***
+							//
+							// Cleanup unmanaged resources here (no calls
+							// to any .NET objects should be made here).
+							//
 							this.OnDisposeUnmanagedObjects();
 						}
 					}
@@ -189,10 +189,10 @@ namespace System
 		/// </summary>
 		protected virtual void AccessMethod()
 		{
-			// ***
-			// *** Called in any method of the inherited class. If this
-			// *** object is disposed, it will throw an exception.
-			// ***
+			//
+			// Called in any method of the inherited class. If this
+			// object is disposed, it will throw an exception.
+			//
 			if (this.IsDisposed)
 			{
 				throw new ObjectDisposedException(this.GetType().Name);
@@ -205,9 +205,9 @@ namespace System
 		/// </summary>
 		protected virtual string OnGetClassName()
 		{
-			// ***
-			// *** Override to show the class name
-			// ***
+			//
+			// Override to show the class name
+			//
 			return this.ToString();
 		}
 
@@ -218,12 +218,12 @@ namespace System
 		/// </summary>
 		protected virtual bool OnNotDisposedProperly()
 		{
-			// ***
-			// *** Override this member to handle the assertion in the
-			// *** overriding class.
-			// ***
-			// *** Return True if handled
-			// ***
+			//
+			// Override this member to handle the assertion in the
+			// overriding class.
+			//
+			// Return True if handled
+			//
 			return false;
 		}
 

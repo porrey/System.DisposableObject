@@ -1,20 +1,19 @@
-﻿// ***
-// *** Copyright(C) 2017-2021, Daniel M. Porrey. All rights reserved.
-// **
-// *** This program is free software: you can redistribute it and/or modify
-// *** it under the terms of the GNU Lesser General Public License as published
-// *** by the Free Software Foundation, either version 3 of the License, or
-// *** (at your option) any later version.
-// ***
-// *** This program is distributed in the hope that it will be useful,
-// *** but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// *** GNU Lesser General Public License for more details.
-// ***
-// *** You should have received a copy of the GNU Lesser General Public License
-// *** along with this program. If not, see http://www.gnu.org/licenses/.
-// ***
-#if (NET5_0 || NET6_0)
+﻿//
+// Copyright(C) 2017-2021, Daniel M. Porrey. All rights reserved.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see http://www.gnu.org/licenses/.
+//
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -34,9 +33,9 @@ namespace System
 		/// </summary>
 		public AsyncDisposableObject()
 		{
-			// ***
-			// *** Set this to True for debugging.
-			// ***
+			//
+			// Set this to True for debugging.
+			//
 			this.AssertWhenNotDisposed = false;
 		}
 
@@ -45,25 +44,25 @@ namespace System
 		/// </summary>
 		~AsyncDisposableObject()
 		{
-			// ***
-			// *** Write a trace (to the debugger) showing this method was called (it will only
-			// *** get called if this object is not Disposed).
-			// ***
+			//
+			// Write a trace (to the debugger) showing this method was called (it will only
+			// get called if this object is not Disposed).
+			//
 			Trace.TraceWarning("~BaseObject called on {0}", this.OnGetClassName());
 
-			// ***
-			// *** Give the parent object a chance to respond, if not then this
-			// *** class will assert.
-			// ***
+			//
+			// Give the parent object a chance to respond, if not then this
+			// class will assert.
+			//
 			if (this.AssertWhenNotDisposed)
 			{
 				if (!this.OnNotDisposedProperly())
 				{
-					// ***
-					// *** Assert if this object is destroyed without being disposed. Even though
-					// *** dispose is called here, it is more ideal that it be called by the user
-					// *** of the object. This assert will help catch this instance.
-					// ***
+					//
+					// Assert if this object is destroyed without being disposed. Even though
+					// dispose is called here, it is more ideal that it be called by the user
+					// of the object. This assert will help catch this instance.
+					//
 					Trace.Assert(this.IsDisposed, this.OnGetClassName() + " was not disposed properly.");
 				}
 				else
@@ -72,11 +71,11 @@ namespace System
 				}
 			}
 
-			// ***
-			// *** This destructor is only called by garbage collection. Because of this, this object
-			// *** can no longer access managed objects. Only unmanaged objects will be cleaned up
-			// *** here.
-			// ***
+			//
+			// This destructor is only called by garbage collection. Because of this, this object
+			// can no longer access managed objects. Only unmanaged objects will be cleaned up
+			// here.
+			//
 			this.Dispose(false);
 		}
 
@@ -92,4 +91,3 @@ namespace System
 		}
 	}
 }
-#endif

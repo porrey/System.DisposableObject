@@ -13,16 +13,16 @@ Create a class and inherit from **DisposableObject** as shown below:
     {
       protected override void OnDisposeManagedObjects()
       {
-	    // ***
-	    // *** Disposed CLR managed objects here.
-	    // ***
+	    //
+	    // Disposed CLR managed objects here.
+	    //
       }
     
       protected override void OnDisposeUnmanagedObjects()
       {
-	    // ***
-	    // *** Disposed non-CLR managed objects here.
-	    // ***
+	    //
+	    // Disposed non-CLR managed objects here.
+	    //
       }
     }
 
@@ -32,9 +32,9 @@ When instantiating the class. wrap it in a using statement.
 
     using (SomeObject obj = new SomeObject())
     {
-      // ***
-      // *** obj will be disposed and the dispose
-      // *** methods will be called.
+      //
+      // obj will be disposed and the dispose
+      // methods will be called.
     }
 
 or call the Dispose() method.
