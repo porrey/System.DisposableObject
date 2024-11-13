@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<Authors>Daniel Porrey</Authors>
 		<Company>Daniel Porrey</Company>
-		<Copyright>Copyright © Daniel Porrey 2017-2024</Copyright>
+		<Copyright>Copyright © Daniel Porrey 2017-2025</Copyright>
 		<PackageId>System.DisposableObject</PackageId>
-		<Version>8.0.0</Version>
+		<Version>9.0.0</Version>
+		<FileVersion>9.0.0</FileVersion>
+		<AssemblyVersion>9.0.0</AssemblyVersion>
 		<Description>Base object for disposing managed and unmanaged objects. Supports async disposing with IAsyncDisposable as well as the standard IDisposable.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseUrl></PackageLicenseUrl>
@@ -15,8 +17,6 @@
 		<AssemblyName>System.DisposableObject</AssemblyName>
 		<RootNamespace>System.DisposableObject</RootNamespace>
 		<PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
-		<FileVersion>8.0.0</FileVersion>
-		<AssemblyVersion>8.0.0</AssemblyVersion>
 		<PackageProjectUrl>https://github.com/porrey/System.DisposableObject</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/porrey/System.DisposableObject</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
