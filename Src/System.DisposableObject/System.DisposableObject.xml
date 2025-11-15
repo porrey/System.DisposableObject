@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>System.DisposableObject</name>
+    </assembly>
+    <members>
+        <member name="T:System.AsyncDisposableObject">
+            <summary>
+            This class provides base functionality for implementing
+            <see cref="T:System.IAsyncDisposable"/>. Since we are dealing with
+            database resources, disposing of objects is important. Any
+            class that inherits from this class simply needs to override
+            OnDisposeManagedObjects and/or OnDisposeUnmanagedObjects.
+            </summary>
+        </member>
+        <member name="M:System.AsyncDisposableObject.#ctor">
+            <summary>
+            Default constructor for <see cref="T:System.AsyncDisposableObject"/>.
+            </summary>
+        </member>
+        <member name="M:System.AsyncDisposableObject.Finalize">
+            <summary>
+            Default destructor for <see cref="T:System.AsyncDisposableObject"/>.
+            </summary>
+        </member>
+        <member name="M:System.AsyncDisposableObject.DisposeAsync">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting
+            unmanaged resources asynchronously.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:System.DisposableObject">
+            <summary>
+            This class provides base functionality for implementing
+            <see cref="T:System.IDisposable"/>. Since we are dealing with
+            database resources, disposing of objects is important.
+            Any class that inherits from this class simply needs
+            to override OnDisposeManagedObjects and/or
+            OnDisposeUnmanagedObjects.
+            </summary>
+        </member>
+        <member name="P:System.DisposableObject.IsDisposed">
+            <summary>
+            Gets a value that specifies if this object has been disposed or not.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.#ctor">
+            <summary>
+            Default constructor for <see cref="T:System.DisposableObject"/>.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.Finalize">
+            <summary>
+            Default destructor for <see cref="T:System.DisposableObject"/>.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.Dispose">
+            <summary>
+            Called to perform cleanup of valuable resources and to set the state of
+            the object to an unusable state.
+            </summary>
+        </member>
+        <member name="P:System.DisposableObject.InProcessOfDisposing">
+            <summary>
+            Set to true if the object is currently being disposed.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.Dispose(System.Boolean)">
+            <summary>
+            Called internally to dispose
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="P:System.DisposableObject.AssertWhenNotDisposed">
+            <summary>
+            Set this property to True to inform the class to display a message if the object is destroyed
+            without the Dispose() method having been called.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.OnDisposeManagedObjects">
+            <summary>
+            Classes should override this method to perform cleanup of managed objects.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.OnDisposeUnmanagedObjects">
+            <summary>
+            Classes should override this method to perform cleanup of unmanaged objects.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.AccessMethod">
+            <summary>
+            Classes should call this method prior to any other method call being invoked to ensure that
+            the Dispose() has not been called on the class.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.OnGetClassName">
+            <summary>
+            Classes should override this method to provide a class name that is displayed in the Assert
+            message. See the property AssertWhenNotDisposed.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.OnNotDisposedProperly">
+            <summary>
+            Classes should override this method to handle the message when the class is not disposed
+            properly instead of having the base class handling it. The class should return True
+            to suppress any messages from the base class.
+            </summary>
+        </member>
+        <member name="M:System.DisposableObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)">
+            <summary>
+            Provides the implementation for operations that invoke a member. Classes derived
+            from the <see cref="N:System.Dynamic"/> class can override this method to specify
+            dynamic behavior for operations such as calling a method.
+            </summary>
+            <param name="binder">Provides information about the dynamic operation. The binder.Name property provides
+            the name of the member on which the dynamic operation is performed. For example,
+            for the statement sampleObject.SampleMethod(100), where sampleObject is an instance
+            of the class derived from the System.Dynamic.DynamicObject class, binder.Name
+            returns "SampleMethod". The binder.IgnoreCase property specifies whether the
+            member name is case-sensitive.</param>
+            <param name="args">The arguments that are passed to the object member during the invoke operation.
+            For example, for the statement sampleObject.SampleMethod(100), where sampleObject
+            is derived from the System.Dynamic.DynamicObject class, args[0] is equal to 100.</param>
+            <param name="result">The result of the member invocation.</param>
+            <returns>true if the operation is successful; otherwise, false. If this method returns
+            false, the run-time binder of the language determines the behavior. (In most
+            cases, a language-specific run-time exception is thrown.)</returns>
+        </member>
+    </members>
+</doc>
