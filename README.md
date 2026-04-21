@@ -1,3 +1,5 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/porrey/System.DisposableObject/.github%2Fworkflows%2Fdotnet.yml?style=for-the-badge&label=Build%20and%20Test) ![GitHub License](https://img.shields.io/github/license/porrey/System.DisposableObject?style=for-the-badge) ![.NET](https://img.shields.io/badge/.NET-10-purple?style=for-the-badge)
+
 [![Nuget](https://img.shields.io/nuget/v/System.DisposableObject?label=System.DisposableObject%20-%20NuGet&style=for-the-badge)![Nuget](https://img.shields.io/nuget/dt/System.DisposableObject?label=Downloads&style=for-the-badge)](https://www.nuget.org/packages/System.DisposableObject/)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg?style=for-the-badge)](https://www.gnu.org/licenses/lgpl-3.0)
 
