@@ -7,10 +7,9 @@
         <member name="T:System.AsyncDisposableObject">
             <summary>
             This class provides base functionality for implementing
-            <see cref="T:System.IAsyncDisposable"/>. Since we are dealing with
-            database resources, disposing of objects is important. Any
-            class that inherits from this class simply needs to override
-            OnDisposeManagedObjects and/or OnDisposeUnmanagedObjects.
+            <see cref="T:System.IAsyncDisposable"/>. Any class that inherits from this class
+            simply needs to override <see cref="M:System.DisposableObject.OnDisposeManagedObjects"/>,
+            <see cref="M:System.DisposableObject.OnDisposeUnmanagedObjects"/>, and/or <see cref="M:System.AsyncDisposableObject.DisposeAsyncCore"/>.
             </summary>
         </member>
         <member name="M:System.AsyncDisposableObject.#ctor">
@@ -18,31 +17,37 @@
             Default constructor for <see cref="T:System.AsyncDisposableObject"/>.
             </summary>
         </member>
-        <member name="M:System.AsyncDisposableObject.Finalize">
-            <summary>
-            Default destructor for <see cref="T:System.AsyncDisposableObject"/>.
-            </summary>
-        </member>
         <member name="M:System.AsyncDisposableObject.DisposeAsync">
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting
             unmanaged resources asynchronously.
             </summary>
-            <returns></returns>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/> representing the asynchronous dispose operation.</returns>
+        </member>
+        <member name="M:System.AsyncDisposableObject.DisposeAsyncCore">
+            <summary>
+            Override this method to perform asynchronous cleanup of managed resources.
+            The base implementation returns a completed <see cref="T:System.Threading.Tasks.ValueTask"/>.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/> representing the asynchronous cleanup operation.</returns>
         </member>
         <member name="T:System.DisposableObject">
             <summary>
             This class provides base functionality for implementing
-            <see cref="T:System.IDisposable"/>. Since we are dealing with
-            database resources, disposing of objects is important.
-            Any class that inherits from this class simply needs
-            to override OnDisposeManagedObjects and/or
-            OnDisposeUnmanagedObjects.
+            <see cref="T:System.IDisposable"/>. Any class that inherits from this class
+            simply needs to override <see cref="M:System.DisposableObject.OnDisposeManagedObjects"/> and/or
+            <see cref="M:System.DisposableObject.OnDisposeUnmanagedObjects"/>.
             </summary>
         </member>
         <member name="P:System.DisposableObject.IsDisposed">
             <summary>
             Gets a value that specifies if this object has been disposed or not.
+            </summary>
+        </member>
+        <member name="E:System.DisposableObject.Disposed">
+            <summary>
+            Raised when the object has been successfully disposed via <see cref="M:System.DisposableObject.Dispose"/>.
+            This event is not raised when the finalizer disposes the object.
             </summary>
         </member>
         <member name="M:System.DisposableObject.#ctor">
@@ -107,10 +112,34 @@
             to suppress any messages from the base class.
             </summary>
         </member>
+        <member name="M:System.DisposableObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+            <summary>
+            Provides the implementation for operations that get a member value. Classes derived
+            from the <see cref="T:System.Dynamic.DynamicObject"/> class can override this method to specify
+            dynamic behavior for operations such as getting a property value.
+            </summary>
+            <param name="binder">Provides information about the object that called the dynamic operation.</param>
+            <param name="result">The result of the get operation.</param>
+            <returns>true if the operation is successful; otherwise, false. If this method returns
+            false, the run-time binder of the language determines the behavior. (In most
+            cases, a language-specific run-time exception is thrown.)</returns>
+        </member>
+        <member name="M:System.DisposableObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)">
+            <summary>
+            Provides the implementation for operations that set a member value. Classes derived
+            from the <see cref="T:System.Dynamic.DynamicObject"/> class can override this method to specify
+            dynamic behavior for operations such as setting a property value.
+            </summary>
+            <param name="binder">Provides information about the object that called the dynamic operation.</param>
+            <param name="value">The value to set to the member.</param>
+            <returns>true if the operation is successful; otherwise, false. If this method returns
+            false, the run-time binder of the language determines the behavior. (In most
+            cases, a language-specific run-time exception is thrown.)</returns>
+        </member>
         <member name="M:System.DisposableObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)">
             <summary>
             Provides the implementation for operations that invoke a member. Classes derived
-            from the <see cref="N:System.Dynamic"/> class can override this method to specify
+            from the <see cref="T:System.Dynamic.DynamicObject"/> class can override this method to specify
             dynamic behavior for operations such as calling a method.
             </summary>
             <param name="binder">Provides information about the dynamic operation. The binder.Name property provides

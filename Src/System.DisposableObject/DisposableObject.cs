@@ -16,23 +16,31 @@
 //
 using System.Diagnostics;
 using System.Dynamic;
+using System.Threading;
 
 namespace System
 {
 	/// <summary>
 	/// This class provides base functionality for implementing
-	/// <see cref="IDisposable"/>. Since we are dealing with
-	/// database resources, disposing of objects is important.
-	/// Any class that inherits from this class simply needs
-	/// to override OnDisposeManagedObjects and/or
-	/// OnDisposeUnmanagedObjects.
+	/// <see cref="IDisposable"/>. Any class that inherits from this class
+	/// simply needs to override <see cref="OnDisposeManagedObjects"/> and/or
+	/// <see cref="OnDisposeUnmanagedObjects"/>.
 	/// </summary>
 	public abstract class DisposableObject : DynamicObject, IDisposable
 	{
+		// Disposal state: 0 = not started, 1 = in progress, 2 = completed.
+		private int _disposed = 0;
+
 		/// <summary>
 		/// Gets a value that specifies if this object has been disposed or not.
 		/// </summary>
-		protected bool IsDisposed { get; private set; }
+		public bool IsDisposed => Volatile.Read(ref _disposed) >= 2;
+
+		/// <summary>
+		/// Raised when the object has been successfully disposed via <see cref="Dispose()"/>.
+		/// This event is not raised when the finalizer disposes the object.
+		/// </summary>
+		public event EventHandler Disposed;
 
 		/// <summary>
 		/// Default constructor for <see cref="DisposableObject"/>.
@@ -114,52 +122,58 @@ namespace System
 		/// <param name="disposing"></param>
 		protected virtual void Dispose(bool disposing)
 		{
+			//
+			// Atomically transition from "not started" (0) to "in progress" (1).
+			// Re-entrant calls and concurrent calls from other threads both return
+			// early here, preventing double cleanup.
+			//
+			if (Interlocked.CompareExchange(ref _disposed, 1, 0) != 0)
+			{
+				return;
+			}
+
+			this.InProcessOfDisposing = true;
 			try
 			{
-				if (!this.InProcessOfDisposing)
+				//
+				// Dispose(bool disposing) executes in two distinct scenarios.
+				// If disposing equals true, the method has been called directly
+				// from code. Managed and unmanaged resources can be disposed. If
+				// disposing equals false, the method has been called by the
+				// runtime from inside the finalizer and you should not reference
+				// other objects. Only unmanaged resources can be disposed.
+				//
+
+				//
+				// Dispose managed resources (any objects with a Dispose method).
+				//
+				if (disposing)
 				{
-					this.InProcessOfDisposing = true;
-
-					//
-					// Dispose(bool disposing) executes in two distinct scenarios.
-					// If disposing equals true, the method has been called directly
-					// code. Managed and unmanaged resources can be disposed. If
-					// disposing equals false, the method has been called by the
-					// runtime from inside the finalizer and you should not reference
-					// other objects. Only unmanaged resources can be disposed.
-					//
-					try
-					{
-						//
-						// Check to see of Dispose has been called yet
-						//
-						if (!this.IsDisposed)
-						{
-							//
-							// Dispose managed resources (any objects
-							// with a Dispose method)
-							//
-							if (disposing)
-							{
-								this.OnDisposeManagedObjects();
-							}
-
-							//
-							// Cleanup unmanaged resources here (no calls
-							// to any .NET objects should be made here).
-							//
-							this.OnDisposeUnmanagedObjects();
-						}
-					}
-					finally
-					{
-						this.IsDisposed = true;
-					}
+					this.OnDisposeManagedObjects();
 				}
+
+				//
+				// Cleanup unmanaged resources here (no calls
+				// to any .NET objects should be made here).
+				//
+				this.OnDisposeUnmanagedObjects();
 			}
 			finally
 			{
+				//
+				// Mark disposal as completed (transitions from "in progress" (1) to "completed" (2)).
+				//
+				Interlocked.Exchange(ref _disposed, 2);
 				this.InProcessOfDisposing = false;
+			}
+
+			//
+			// Notify listeners that this object has been disposed. Only raised for
+			// deterministic (non-finalizer) disposal.
+			//
+			if (disposing)
+			{
+				this.Disposed?.Invoke(this, EventArgs.Empty);
 			}
 		}
 
@@ -193,10 +207,7 @@ namespace System
 			// Called in any method of the inherited class. If this
 			// object is disposed, it will throw an exception.
 			//
-			if (this.IsDisposed)
-			{
-				throw new ObjectDisposedException(this.GetType().Name);
-			}
+			ObjectDisposedException.ThrowIf(this.IsDisposed, this);
 		}
 
 		/// <summary>
@@ -228,8 +239,40 @@ namespace System
 		}
 
 		/// <summary>
+		/// Provides the implementation for operations that get a member value. Classes derived
+		/// from the <see cref="DynamicObject"/> class can override this method to specify
+		/// dynamic behavior for operations such as getting a property value.
+		/// </summary>
+		/// <param name="binder">Provides information about the object that called the dynamic operation.</param>
+		/// <param name="result">The result of the get operation.</param>
+		/// <returns>true if the operation is successful; otherwise, false. If this method returns
+		/// false, the run-time binder of the language determines the behavior. (In most
+		/// cases, a language-specific run-time exception is thrown.)</returns>
+		public override bool TryGetMember(GetMemberBinder binder, out object result)
+		{
+			this.AccessMethod();
+			return base.TryGetMember(binder, out result);
+		}
+
+		/// <summary>
+		/// Provides the implementation for operations that set a member value. Classes derived
+		/// from the <see cref="DynamicObject"/> class can override this method to specify
+		/// dynamic behavior for operations such as setting a property value.
+		/// </summary>
+		/// <param name="binder">Provides information about the object that called the dynamic operation.</param>
+		/// <param name="value">The value to set to the member.</param>
+		/// <returns>true if the operation is successful; otherwise, false. If this method returns
+		/// false, the run-time binder of the language determines the behavior. (In most
+		/// cases, a language-specific run-time exception is thrown.)</returns>
+		public override bool TrySetMember(SetMemberBinder binder, object value)
+		{
+			this.AccessMethod();
+			return base.TrySetMember(binder, value);
+		}
+
+		/// <summary>
 		/// Provides the implementation for operations that invoke a member. Classes derived
-		/// from the <see cref="Dynamic"/> class can override this method to specify
+		/// from the <see cref="DynamicObject"/> class can override this method to specify
 		/// dynamic behavior for operations such as calling a method.
 		/// </summary>
 		/// <param name="binder">Provides information about the dynamic operation. The binder.Name property provides

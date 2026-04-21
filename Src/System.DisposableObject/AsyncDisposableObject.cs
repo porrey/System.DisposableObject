@@ -14,17 +14,15 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see http://www.gnu.org/licenses/.
 //
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace System
 {
 	/// <summary>
 	/// This class provides base functionality for implementing
-	/// <see cref="IAsyncDisposable"/>. Since we are dealing with
-	/// database resources, disposing of objects is important. Any
-	/// class that inherits from this class simply needs to override
-	/// OnDisposeManagedObjects and/or OnDisposeUnmanagedObjects.
+	/// <see cref="IAsyncDisposable"/>. Any class that inherits from this class
+	/// simply needs to override <see cref="DisposableObject.OnDisposeManagedObjects"/>,
+	/// <see cref="DisposableObject.OnDisposeUnmanagedObjects"/>, and/or <see cref="DisposeAsyncCore"/>.
 	/// </summary>
 	public abstract class AsyncDisposableObject : DisposableObject, IAsyncDisposable
 	{
@@ -33,61 +31,49 @@ namespace System
 		/// </summary>
 		public AsyncDisposableObject()
 		{
-			//
-			// Set this to True for debugging.
-			//
-			this.AssertWhenNotDisposed = false;
-		}
-
-		/// <summary>
-		/// Default destructor for <see cref="AsyncDisposableObject"/>.
-		/// </summary>
-		~AsyncDisposableObject()
-		{
-			//
-			// Write a trace (to the debugger) showing this method was called (it will only
-			// get called if this object is not Disposed).
-			//
-			Trace.TraceWarning("~BaseObject called on {0}", this.OnGetClassName());
-
-			//
-			// Give the parent object a chance to respond, if not then this
-			// class will assert.
-			//
-			if (this.AssertWhenNotDisposed)
-			{
-				if (!this.OnNotDisposedProperly())
-				{
-					//
-					// Assert if this object is destroyed without being disposed. Even though
-					// dispose is called here, it is more ideal that it be called by the user
-					// of the object. This assert will help catch this instance.
-					//
-					Trace.Assert(this.IsDisposed, this.OnGetClassName() + " was not disposed properly.");
-				}
-				else
-				{
-					Trace.TraceWarning("{0} was not disposed properly.", this.OnGetClassName());
-				}
-			}
-
-			//
-			// This destructor is only called by garbage collection. Because of this, this object
-			// can no longer access managed objects. Only unmanaged objects will be cleaned up
-			// here.
-			//
-			this.Dispose(false);
 		}
 
 		/// <summary>
 		/// Performs application-defined tasks associated with freeing, releasing, or resetting
 		/// unmanaged resources asynchronously.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>A <see cref="ValueTask"/> representing the asynchronous dispose operation.</returns>
 		public virtual ValueTask DisposeAsync()
 		{
+			if (!this.IsDisposed)
+			{
+				ValueTask core = this.DisposeAsyncCore();
+
+				if (!core.IsCompleted)
+				{
+					return FinishDisposeAsync(core);
+				}
+
+				//
+				// Propagate any synchronous exception from the core step before
+				// proceeding to the synchronous cleanup.
+				//
+				core.GetAwaiter().GetResult();
+			}
+
 			this.Dispose();
 			return ValueTask.CompletedTask;
+		}
+
+		/// <summary>
+		/// Override this method to perform asynchronous cleanup of managed resources.
+		/// The base implementation returns a completed <see cref="ValueTask"/>.
+		/// </summary>
+		/// <returns>A <see cref="ValueTask"/> representing the asynchronous cleanup operation.</returns>
+		protected virtual ValueTask DisposeAsyncCore()
+		{
+			return ValueTask.CompletedTask;
+		}
+
+		private async ValueTask FinishDisposeAsync(ValueTask core)
+		{
+			await core.ConfigureAwait(false);
+			this.Dispose();
 		}
 	}
 }

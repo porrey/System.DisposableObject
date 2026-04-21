@@ -62,6 +62,21 @@ namespace DisposableObjectTests
 		}
 	}
 
+	/// <summary>
+	/// Subclass that overrides <see cref="AsyncDisposableObject.DisposeAsyncCore"/> to
+	/// count how many times it is invoked.
+	/// </summary>
+	internal class AsyncCoreTrackingDisposable : AsyncDisposableObject
+	{
+		public int AsyncCoreCount { get; private set; }
+
+		protected override ValueTask DisposeAsyncCore()
+		{
+			AsyncCoreCount++;
+			return ValueTask.CompletedTask;
+		}
+	}
+
 	// ---------------------------------------------------------------------------
 	// Tests
 	// ---------------------------------------------------------------------------
@@ -206,6 +221,36 @@ namespace DisposableObjectTests
 			var obj = new ReentrantAsyncDisposable();
 			obj.Dispose();
 			Assert.Equal(1, obj.ManagedDisposeCount);
+		}
+
+		// -----------------------------------------------------------------------
+		// DisposeAsyncCore hook
+		// -----------------------------------------------------------------------
+
+		[Fact]
+		public async Task DisposeAsyncCore_IsCalledOnce_ByDisposeAsync()
+		{
+			var obj = new AsyncCoreTrackingDisposable();
+			await obj.DisposeAsync();
+			Assert.Equal(1, obj.AsyncCoreCount);
+		}
+
+		[Fact]
+		public async Task DisposeAsyncCore_IsNotCalledAgain_OnDoubleDisposeAsync()
+		{
+			var obj = new AsyncCoreTrackingDisposable();
+			await obj.DisposeAsync();
+			await obj.DisposeAsync();
+			Assert.Equal(1, obj.AsyncCoreCount);
+		}
+
+		[Fact]
+		public async Task DisposeAsyncCore_IsNotCalled_WhenSyncDisposeFirst()
+		{
+			var obj = new AsyncCoreTrackingDisposable();
+			obj.Dispose();
+			await obj.DisposeAsync();
+			Assert.Equal(0, obj.AsyncCoreCount);
 		}
 	}
 }

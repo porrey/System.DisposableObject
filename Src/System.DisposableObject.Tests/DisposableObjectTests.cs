@@ -270,5 +270,116 @@ namespace DisposableObjectTests
 			Assert.NotNull(ex);
 			Assert.IsNotType<ObjectDisposedException>(ex);
 		}
+
+		// -----------------------------------------------------------------------
+		// IsDisposed is public
+		// -----------------------------------------------------------------------
+
+		[Fact]
+		public void IsDisposed_IsPublic_AndFalseBeforeDispose()
+		{
+			// Access IsDisposed directly on the base-type reference to confirm it is public.
+			DisposableObject obj = new TrackingDisposable();
+			Assert.False(obj.IsDisposed);
+		}
+
+		[Fact]
+		public void IsDisposed_IsPublic_AndTrueAfterDispose()
+		{
+			DisposableObject obj = new TrackingDisposable();
+			obj.Dispose();
+			Assert.True(obj.IsDisposed);
+		}
+
+		// -----------------------------------------------------------------------
+		// Disposed event
+		// -----------------------------------------------------------------------
+
+		[Fact]
+		public void Disposed_Event_IsRaisedOnce_AfterDispose()
+		{
+			var obj = new TrackingDisposable();
+			int count = 0;
+			obj.Disposed += (_, _) => count++;
+			obj.Dispose();
+			Assert.Equal(1, count);
+		}
+
+		[Fact]
+		public void Disposed_Event_IsNotRaisedAgain_OnDoubleDispose()
+		{
+			var obj = new TrackingDisposable();
+			int count = 0;
+			obj.Disposed += (_, _) => count++;
+			obj.Dispose();
+			obj.Dispose();
+			Assert.Equal(1, count);
+		}
+
+		[Fact]
+		public void Disposed_Event_SenderIsTheDisposedObject()
+		{
+			var obj = new TrackingDisposable();
+			object? capturedSender = null;
+			obj.Disposed += (sender, _) => capturedSender = sender;
+			obj.Dispose();
+			Assert.Same(obj, capturedSender);
+		}
+
+		// -----------------------------------------------------------------------
+		// TryGetMember guard (dynamic property read)
+		// -----------------------------------------------------------------------
+
+		[Fact]
+		public void TryGetMember_ThrowsObjectDisposedException_WhenDisposed()
+		{
+			dynamic obj = new TrackingDisposable();
+			((TrackingDisposable)obj).Dispose();
+
+			Assert.Throws<ObjectDisposedException>(() =>
+			{
+				_ = obj.AnyDynamicProperty;
+			});
+		}
+
+		[Fact]
+		public void TryGetMember_DoesNotThrowObjectDisposedException_BeforeDispose()
+		{
+			dynamic obj = new TrackingDisposable();
+
+			// base.TryGetMember returns false, causing a RuntimeBinderException — not
+			// ObjectDisposedException — confirming AccessMethod passed (not yet disposed).
+			var ex = Record.Exception(() => { _ = obj.AnyDynamicProperty; });
+			Assert.NotNull(ex);
+			Assert.IsNotType<ObjectDisposedException>(ex);
+		}
+
+		// -----------------------------------------------------------------------
+		// TrySetMember guard (dynamic property write)
+		// -----------------------------------------------------------------------
+
+		[Fact]
+		public void TrySetMember_ThrowsObjectDisposedException_WhenDisposed()
+		{
+			dynamic obj = new TrackingDisposable();
+			((TrackingDisposable)obj).Dispose();
+
+			Assert.Throws<ObjectDisposedException>(() =>
+			{
+				obj.AnyDynamicProperty = "value";
+			});
+		}
+
+		[Fact]
+		public void TrySetMember_DoesNotThrowObjectDisposedException_BeforeDispose()
+		{
+			dynamic obj = new TrackingDisposable();
+
+			// base.TrySetMember returns false, causing a RuntimeBinderException — not
+			// ObjectDisposedException — confirming AccessMethod passed (not yet disposed).
+			var ex = Record.Exception(() => { obj.AnyDynamicProperty = "value"; });
+			Assert.NotNull(ex);
+			Assert.IsNotType<ObjectDisposedException>(ex);
+		}
 	}
 }
