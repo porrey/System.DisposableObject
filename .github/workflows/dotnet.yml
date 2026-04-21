@@ -22,10 +22,10 @@ jobs:
         dotnet-version: 10.0.x
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: Src/System.DisposableObject.sln
+      working-directory: Src
     - name: Build
       run: dotnet build --no-restore
-      working-directory: Src/System.DisposableObject.sln
+      working-directory: Src
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: Src/System.DisposableObject.sln
+      working-directory: Src
