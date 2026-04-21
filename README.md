@@ -1,5 +1,4 @@
-[![Nuget](https://img.shields.io/nuget/v/System.DisposableObject?label=System.DisposableObject%20-%20NuGet&style=for-the-badge)
-![Nuget](https://img.shields.io/nuget/dt/System.DisposableObject?label=Downloads&style=for-the-badge)](https://www.nuget.org/packages/System.DisposableObject/)
+[![Nuget](https://img.shields.io/nuget/v/System.DisposableObject?label=System.DisposableObject%20-%20NuGet&style=for-the-badge)![Nuget](https://img.shields.io/nuget/dt/System.DisposableObject?label=Downloads&style=for-the-badge)](https://www.nuget.org/packages/System.DisposableObject/)
 
 # System.DisposableObject
 Base object for disposing managed and unmanaged objects. This object implements the dispose pattern for the .NET Framework.
