@@ -4,7 +4,7 @@
 
 `System.DisposableObject` is a lightweight .NET class library that provides ready-to-use base classes implementing the [Dispose Pattern](https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) for both synchronous (`IDisposable`) and asynchronous (`IAsyncDisposable`) resource cleanup. Consuming code inherits from one of the two base classes and overrides hook methods rather than re-implementing the full dispose pattern from scratch.
 
-The library is distributed as a NuGet package (`System.DisposableObject`) and targets **net10.0**.
+The library is distributed as a NuGet package (`System.DisposableObject`) and targets **net11.0**.
 
 ---
 
@@ -37,7 +37,7 @@ System.DisposableObject/          ← repository root
 
 | Technology | Role |
 |---|---|
-| **C# / .NET 10** | Implementation language and target runtime |
+| **C# / .NET 11** | Implementation language and target runtime |
 | **Visual Studio 2019+ solution format** | IDE project organisation (`Format Version 12.00`) |
 | **`IDisposable`** | Standard synchronous resource-cleanup interface |
 | **`IAsyncDisposable`** | Asynchronous resource-cleanup interface (C# 8 / .NET Core 3+) |
@@ -114,7 +114,7 @@ Async call:     await obj.DisposeAsync()
 
 ## Example Project (`System.DisposableObject.Example`)
 
-A minimal console application (`net10.0`) that exercises both base classes:
+A minimal console application (`net11.0`) that exercises both base classes:
 
 * **`SomeObject`** — inherits `DisposableObject`; overrides both hook methods.
 * **`SomeAsyncObject`** — inherits `AsyncDisposableObject`; overrides both hook methods.
